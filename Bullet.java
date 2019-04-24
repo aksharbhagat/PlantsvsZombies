@@ -1,8 +1,12 @@
 
+import java.awt.*;
+
+
 public class Bullet {
-
-	public Bullet() {
-		// TODO Auto-generated constructor stub
+	private Rectangle rect;
+	private int dx;
+	private Image img;
+	public Bullet(){
+		
 	}
-
 }
