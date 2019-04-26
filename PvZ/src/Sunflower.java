@@ -1,4 +1,3 @@
-
 public class Sunflower extends Plant{
 
 	public Sunflower(int x, int y) {
@@ -7,4 +6,3 @@ public class Sunflower extends Plant{
 	}
 
 }
-

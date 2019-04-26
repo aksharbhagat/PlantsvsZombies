@@ -27,8 +27,5 @@ public abstract class Plant {
 		}
 		return img;
 	}
-	public void draw(Graphics g){
-		g.drawImage(image,x,y,x,y,null);
-	}
 	
 }
