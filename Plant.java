@@ -8,6 +8,7 @@ public abstract class Plant {
 	private int row;
 	private int col;
 	private Image image;
+	public boolean dead = false;
 	public Plant(int x, int y, int h, String s) {
 		// TODO Auto-generated constructor stub
 		row = x;
@@ -26,6 +27,12 @@ public abstract class Plant {
 			e.printStackTrace();
 		}
 		return img;
+	}
+	public void dying() {
+		health-=10;
+		if (health<=0) {
+			dead = true;
+		}
 	}
 	
 }
