@@ -1,19 +1,25 @@
 import java.awt.*;
-import java.awt.Graphics;
+import java.awt.event.*;
 
 import javax.swing.*;
 
 public class PvZRunner {
+	private static final int REFRESH_RATE = 100;
 	JFrame frame;
 	JPanel panel;
 	Timer timer;
+	private final int WIDTH = 1500;
+	private final int HEIGHT = 800;
+	private int ticks=0;
+
 	public PvZRunner() {
-		// TODO Auto-generated constructor stub
+		start();
 	}
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		System.out.println("yee");
+		new PvZRunner();
 		
 	}
 
@@ -34,7 +40,7 @@ public class PvZRunner {
 		panel.setPreferredSize(new Dimension(WIDTH,HEIGHT));
 		
 		// so that the frame is placed a little way from top and left side
-		frame.setLocation(WIDTH/10, HEIGHT/10);
+		frame.setLocation(WIDTH/50, HEIGHT/50);
 
 
 		frame.add(panel);
@@ -54,6 +60,12 @@ public class PvZRunner {
 			}
 		});
 		timer.start();
+	}
+
+	protected void drawGame(Graphics g) {
+		// TODO Auto-generated method stub
+		Field f = new Field(g);
+		
 	}
 
 	// this method is called every time the timer goes off (which right now is every 10 milliseconds = 100 times per second
