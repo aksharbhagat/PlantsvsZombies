@@ -5,14 +5,14 @@ import javax.imageio.ImageIO;
 
 public abstract class Plant {
 	private int health;
-	private int x;
-	private int y;
+	private int row;
+	private int col;
 	private Image image;
 	private boolean dead = false;
 	public Plant(int xtemp, int ytemp, int h, String s) {
 		// TODO Auto-generated constructor stub
-		x = xtemp;
-		y = ytemp;
+		row = xtemp;
+		col = ytemp;
 		health = h;
 		image = getImage(s);		
 	}
@@ -29,13 +29,15 @@ public abstract class Plant {
 		return img;
 	}
 	public void draw(Graphics g) {
-		g.drawImage(image, x, y, 100, 140, null);
+		int y=row*(800/5)+20;
+		int x = col*(1200/9)+205;
+		g.drawImage(image, x, y, 100, 110, null);
 	}
-	public int getX() {
-		return x;
+	public int getCol() {
+		return col;
 	}
-	public int getY() {
-		return y;
+	public int getRow() {
+		return row;
 	}
 	public void dying() {
 		health-=10;

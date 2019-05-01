@@ -5,16 +5,16 @@ import javax.imageio.ImageIO;
 
 public class Zombie {
 	private int health;
+	private int row;
 	private int x;
-	private int y;
 	private Image image;
 	private boolean dead = false;
-	public Zombie(int ytemp, int h, String s) {
+	public Zombie(int ytemp) {
 		// TODO Auto-generated constructor stub
 		x = 1200;
-		y = ytemp;
-		health = h;
-		image = getImage(s);		
+		row = ytemp;
+		health = 100;
+		image = getImage("zombie.png");		
 	}
 	protected  Image getImage(String fn) {
 		Image img = null;
@@ -29,16 +29,17 @@ public class Zombie {
 		return img;
 	}
 	public void draw(Graphics g) {
+		int y=row*(800/5)+20;
 		g.drawImage(image, x, y, 100, 140, null);
 	}
 	public void walk() {
-		x-=1;
+		x-=2;
 	}
 	public int getX() {
 		return x;
 	}
-	public int getY() {
-		return y;
+	public int getRow() {
+		return row;
 	}
 	public void dying() {
 		health-=10;

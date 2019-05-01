@@ -4,14 +4,14 @@ import java.awt.event.*;
 import javax.swing.*;
 
 public class PvZRunner {
-	private static final int REFRESH_RATE = 100;
+	private static final int REFRESH_RATE = 10;
 	JFrame frame;
 	JPanel panel;
 	Timer timer;
 	private final int WIDTH = 1500;
 	private final int HEIGHT = 800;
 	private int ticks=0;
-
+	private Field f;
 	public PvZRunner() {
 		start();
 	}
@@ -24,6 +24,10 @@ public class PvZRunner {
 	}
 
 	private void start() {
+		f = new Field();
+		f.addPlant(new Peashooter(0,0));
+		f.addPlant(new Sunflower(1,1));
+		f.addZombie(new Zombie(0));
 		JFrame frame = new JFrame("PvZ");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		panel = new JPanel() {
@@ -31,6 +35,7 @@ public class PvZRunner {
 			public void paintComponent(Graphics g) {
 				super.paintComponent(g);
 				drawGame(g);
+				Toolkit.getDefaultToolkit().sync();
 			}
 		};
 		// random color to the background
@@ -64,7 +69,7 @@ public class PvZRunner {
 
 	protected void drawGame(Graphics g) {
 		// TODO Auto-generated method stub
-		Field f = new Field(g);
+		f.draw(g);
 		
 	}
 
@@ -72,9 +77,15 @@ public class PvZRunner {
 	protected void updateGame() {
 		ticks++;// keeps track of the number of times the timer has gone off
 		
-		int hurts = 1000/REFRESH_RATE;
+		int hurts = 100/REFRESH_RATE;
 		if(ticks %hurts == 0) {
-			System.out.println(ticks/hurts+" seconds");
+			for(Zombie[] z: f.getZombies()) {
+				for(Zombie zo:z) {
+					if(zo != null) {
+					zo.walk();
+					}
+				}
+			}
 		}
 	}
 }

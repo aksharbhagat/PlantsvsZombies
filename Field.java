@@ -4,11 +4,12 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 public class Field {
+	private Image i;
 	Plant[][] p = new Plant[5][9];
 	Zombie[][] z = new Zombie[5][9];
-	public Field(Graphics g) {
-		Image i = getImage("Frontyard.png");
-		g.drawImage(i, 200, 0,1200,800, null);
+	public Field() {
+		i = getImage("Frontyard.png");
+		
 	}
 	protected Image getImage(String fn) {
 		Image img = null;
@@ -24,8 +25,8 @@ public class Field {
 		for(Zombie[] temp:z) {
 			for(Zombie zee:temp) {
 				if(zee!=null) {
-					int col = 800/zee.getY();
-					int row = 1200/zee.getX();
+					int col = 1200/zee.getX();
+					int row = zee.getRow();
 					if (p[row][col]!=null) {
 						p[row][col].dying();
 					}
@@ -52,16 +53,25 @@ public class Field {
 		z[r][c]=null;
 	}
 	public void draw (Graphics g) {
+		g.drawImage(i, 200, 0,1200,800, null);
 		for(int r=0;r<p.length;r++) {
 			for (int c=0;c<p[0].length;c++) {
-				
+				if(p[r][c]!=null) {
+					p[r][c].draw(g);
+				}
+				if(z[r][c]!=null) {
+					z[r][c].draw(g);
+				}
 			}
 		}
 	}
-
+	public void addZombie(Zombie zee) {
+		z[zee.getRow()][8]=zee;
+	}
 	public void addPlant(Plant pee) {
-		int col = 1200/pee.getX();
-		int row = 800/pee.getY();
-		p[row][col]=pee;
+		p[pee.getRow()][pee.getCol()]=pee;
+	}
+	public Zombie[][] getZombies() {
+		return z;
 	}
 }
