@@ -1,12 +1,15 @@
 import java.awt.*;
+import java.awt.List;
 import java.io.IOException;
+import java.util.*;
 
 import javax.imageio.ImageIO;
 
 public class Field {
 	private Image i;
-	Plant[][] p = new Plant[5][9];
-	Zombie[][] z = new Zombie[5][9];
+	private Plant[][] p = new Plant[5][9];
+	private Zombie[][] z = new Zombie[5][9];
+	private ArrayList <Bullet> b = new ArrayList<Bullet>();
 	public Field() {
 		i = getImage("Frontyard.png");
 		
@@ -71,7 +74,13 @@ public class Field {
 	public void addPlant(Plant pee) {
 		p[pee.getRow()][pee.getCol()]=pee;
 	}
+	public void addBullet(Bullet bee) {
+		b.add(bee);
+	}
 	public Zombie[][] getZombies() {
 		return z;
+	}
+	public Plant[][] getPlants() {
+		return p;
 	}
 }
