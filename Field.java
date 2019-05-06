@@ -8,7 +8,7 @@ import javax.imageio.ImageIO;
 public class Field {
 	private Image i;
 	private Plant[][] p = new Plant[5][9];
-	private Zombie[][] z = new Zombie[5][9];
+	private ArrayList <Zombie> z = new ArrayList<Zombie>();
 	private ArrayList <Bullet> b = new ArrayList<Bullet>();
 	public Field() {
 		i = getImage("Frontyard.png");
@@ -31,6 +31,7 @@ public class Field {
 					int row = zee.getRow();
 					if (p[row][col]!=null) {
 						p[row][col].dying();
+						zee.eating();
 					}
 				}
 			}
@@ -42,11 +43,13 @@ public class Field {
 				if (p[r][c]!=null&&p[r][c].dead()) {
 					this.removePlant(r, c);
 				}
-				if (z[r][c]!=null&&z[r][c].dead()) {
-					this.removeZombie(r, c);
-				}
+			}
+		
+			if(z.get(r).dead()) {
+				this.removeZombie(r, c);
 			}
 		}
+	}
 	}
 	private void removePlant(int r, int c) {
 		p[r][c]=null;

@@ -8,8 +8,8 @@ public class Bullet {
 	private int dx=5;
 	private Image img;
 	public Bullet(int row, int col){
-		int x = col*(1200/9)+210;
-		int y=row*(800/5)+25;
+		int x = col*(1200/9)+280;
+		int y=row*(800/5)+45;
 		rect=new Rectangle(x,y,25,25);
 		img=getImage("bullet.png");
 	}

@@ -4,7 +4,7 @@ import java.awt.event.*;
 import javax.swing.*;
 
 public class PvZRunner {
-	private static final int REFRESH_RATE = 10;
+	private static final int REFRESH_RATE = 8;
 	JFrame frame;
 	JPanel panel;
 	Timer timer;

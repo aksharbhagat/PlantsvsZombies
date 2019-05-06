@@ -7,6 +7,7 @@ public class Zombie {
 	private int health;
 	private int row;
 	private int x;
+	private int dx=1;
 	private Image image;
 	private boolean dead = false;
 	public Zombie(int ytemp) {
@@ -30,10 +31,16 @@ public class Zombie {
 	}
 	public void draw(Graphics g) {
 		int y=row*(800/5)+20;
-		g.drawImage(image, x, y, 100, 140, null);
+		g.drawImage(image, x, y-10, 100, 140, null);
 	}
 	public void walk() {
-		x-=2;
+		x-=dx;
+	}
+	public void eating() {
+		dx=0;
+	}
+	public void ate() {
+		dx=1;
 	}
 	public int getX() {
 		return x;
