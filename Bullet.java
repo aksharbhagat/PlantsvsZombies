@@ -5,7 +5,7 @@ import javax.imageio.ImageIO;
 
 public class Bullet {
 	private Rectangle rect;
-	private int dx;
+	private int dx=5;
 	private Image img;
 	public Bullet(int row, int col){
 		int x = col*(1200/9)+210;
@@ -26,7 +26,8 @@ public class Bullet {
 		return img;
 	}
 	public void move() {
-		rect.x-=dx;
+		rect.setLocation(rect.x+dx, rect.y);
+		
 	}
 	public void draw(Graphics g) {
 		g.drawImage(img, rect.x, rect.y, rect.width, rect.height, null);

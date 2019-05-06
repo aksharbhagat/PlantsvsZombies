@@ -9,7 +9,7 @@ public class Peashooter extends Plant implements Shoot{
 		// TODO Auto-generated constructor stub
 	}
 	@Override
-	public void fire() {
-		Bullet b = new Bullet(this.getRow(),this.getCol());
+	public Bullet fire() {
+		return new Bullet(this.getRow(),this.getCol());
 	}
 }

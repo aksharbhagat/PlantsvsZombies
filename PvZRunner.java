@@ -76,16 +76,16 @@ public class PvZRunner {
 	// this method is called every time the timer goes off (which right now is every 10 milliseconds = 100 times per second
 	protected void updateGame() {
 		ticks++;// keeps track of the number of times the timer has gone off
-
 		int hurts = 100/REFRESH_RATE;
-		if(ticks %hurts == 0) {
-			for(Zombie[] z: f.getZombies()) {
-				for(Zombie zo:z) {
-					if(zo != null) {
-						zo.walk();
-					}
-				}
-			}
+		if(ticks%hurts == 0) {
+			f.moveZombies();
+		}
+		if(ticks%(hurts/5)==0) {
+			f.moveBullets();
+		}
+		if(ticks%(hurts*20)==0) {
+			f.shoot();
+			
 		}
 	}
 }

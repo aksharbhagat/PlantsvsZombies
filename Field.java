@@ -12,7 +12,6 @@ public class Field {
 	private ArrayList <Bullet> b = new ArrayList<Bullet>();
 	public Field() {
 		i = getImage("Frontyard.png");
-		
 	}
 	protected Image getImage(String fn) {
 		Image img = null;
@@ -67,6 +66,9 @@ public class Field {
 				}
 			}
 		}
+		for(Bullet bee:b) {
+			bee.draw(g);
+		}
 	}
 	public void addZombie(Zombie zee) {
 		z[zee.getRow()][8]=zee;
@@ -77,10 +79,34 @@ public class Field {
 	public void addBullet(Bullet bee) {
 		b.add(bee);
 	}
-	public Zombie[][] getZombies() {
-		return z;
+	public void moveZombies() {
+		for(Zombie[]big:z) {
+			for(Zombie zo:big) {
+				if(zo != null) {
+					zo.walk();
+				}
+			}
+		}
 	}
-	public Plant[][] getPlants() {
-		return p;
+	public void moveBullets() {
+		for(Bullet bee:b) {
+			bee.move();
+		}
 	}
+	public void shoot() {
+		for(Plant[]big:p) {
+			for (Plant pee:big) {
+				if(pee!=null&&pee instanceof Shoot) {
+					Shoot s = (Shoot)pee;
+					this.addBullet(s.fire());
+				}
+			}
+		}
+	}
+//	public Zombie[][] getZombies() {
+//		return z;
+//	}
+//	public Plant[][] getPlants() {
+//		return p;
+//	}
 }

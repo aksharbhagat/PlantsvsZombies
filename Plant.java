@@ -45,7 +45,6 @@ public abstract class Plant {
 			dead = true;
 		}
 	}
-
 	public boolean dead() {
 		return dead;
 	}
