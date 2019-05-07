@@ -26,6 +26,7 @@ public class PvZRunner {
 	private void start() {
 		f = new Field();
 		f.addPlant(new Peashooter(0,0));
+		f.addPlant(new Peashooter(0,5));
 		f.addPlant(new Sunflower(1,1));
 		f.addZombie(new Zombie(0));
 		JFrame frame = new JFrame("PvZ");
@@ -79,6 +80,8 @@ public class PvZRunner {
 		int hurts = 100/REFRESH_RATE;
 		if(ticks%hurts == 0) {
 			f.moveZombies();
+			f.checkCollision();
+			f.checkDeath();
 		}
 		if(ticks%(hurts/5)==0) {
 			f.moveBullets();

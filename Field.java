@@ -24,15 +24,16 @@ public class Field {
 		return img;
 	}
 	public void checkCollision() {
-		for(Zombie[] temp:z) {
-			for(Zombie zee:temp) {
-				if(zee!=null) {
-					int col = 1200/zee.getX();
-					int row = zee.getRow();
-					if (p[row][col]!=null) {
-						p[row][col].dying();
-						zee.eating();
-					}
+		for(Zombie zee:z) {
+			if(zee!=null) {
+		FIx THIS!!		int col = 1200/zee.getX();
+				int row = zee.getRow();
+				System.out.println(zee.getX());
+				System.out.println(col);
+				System.out.println(row);
+				if (p[row][col]!=null) {
+					p[row][col].dying();
+					zee.eating();
 				}
 			}
 		}
@@ -44,18 +45,20 @@ public class Field {
 					this.removePlant(r, c);
 				}
 			}
-		
+		}
+		for(int r=0;r<z.size();r++) {
 			if(z.get(r).dead()) {
-				this.removeZombie(r, c);
+				this.removeZombie(r);
 			}
 		}
 	}
-	}
+
+
 	private void removePlant(int r, int c) {
 		p[r][c]=null;
 	}
-	private void removeZombie(int r, int c) {
-		z[r][c]=null;
+	private void removeZombie(int r) {
+		z.remove(r);
 	}
 	public void draw (Graphics g) {
 		g.drawImage(i, 200, 0,1200,800, null);
@@ -64,9 +67,11 @@ public class Field {
 				if(p[r][c]!=null) {
 					p[r][c].draw(g);
 				}
-				if(z[r][c]!=null) {
-					z[r][c].draw(g);
-				}
+			}
+		}
+		for(Zombie zee:z) {
+			if(zee!=null) {
+				zee.draw(g);
 			}
 		}
 		for(Bullet bee:b) {
@@ -74,7 +79,7 @@ public class Field {
 		}
 	}
 	public void addZombie(Zombie zee) {
-		z[zee.getRow()][8]=zee;
+		z.add(zee);
 	}
 	public void addPlant(Plant pee) {
 		p[pee.getRow()][pee.getCol()]=pee;
@@ -83,14 +88,13 @@ public class Field {
 		b.add(bee);
 	}
 	public void moveZombies() {
-		for(Zombie[]big:z) {
-			for(Zombie zo:big) {
-				if(zo != null) {
-					zo.walk();
-				}
+		for(Zombie zo:z) {
+			if(zo != null) {
+				zo.walk();
 			}
 		}
 	}
+
 	public void moveBullets() {
 		for(Bullet bee:b) {
 			bee.move();
@@ -106,10 +110,10 @@ public class Field {
 			}
 		}
 	}
-//	public Zombie[][] getZombies() {
-//		return z;
-//	}
-//	public Plant[][] getPlants() {
-//		return p;
-//	}
+	//	public Zombie[][] getZombies() {
+	//		return z;
+	//	}
+	//	public Plant[][] getPlants() {
+	//		return p;
+	//	}
 }
