@@ -32,6 +32,8 @@ public abstract class Plant {
 		int y=row*(800/5)+20;
 		int x = col*(1200/9)+205;
 		g.drawImage(image, x, y, 100, 110, null);
+		g.setColor(Color.BLUE);
+		g.fillRect(x, y-10, health, 5);
 	}
 	public int getCol() {
 		return col;
@@ -40,7 +42,7 @@ public abstract class Plant {
 		return row;
 	}
 	public void dying() {
-		health-=10;
+		health-=2;
 		if (health<=0) {
 			dead = true;
 		}

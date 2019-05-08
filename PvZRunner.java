@@ -62,6 +62,7 @@ public class PvZRunner {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				updateGame();
+				f.checkBulletCollision();
 				panel.repaint();
 			}
 		});
@@ -80,8 +81,8 @@ public class PvZRunner {
 		int hurts = 100/REFRESH_RATE;
 		if(ticks%hurts == 0) {
 			f.moveZombies();
-			f.checkCollision();
-			f.checkDeath();
+			f.checkPlantCollision();
+			
 		}
 		if(ticks%(hurts/5)==0) {
 			f.moveBullets();

@@ -32,6 +32,8 @@ public class Zombie {
 	public void draw(Graphics g) {
 		int y=row*(800/5)+20;
 		g.drawImage(image, x, y-10, 100, 140, null);
+		g.setColor(Color.RED);
+		g.fillRect(x-10, y-15, (health*4)/5, 5);
 	}
 	public void walk() {
 		x-=dx;
@@ -53,6 +55,7 @@ public class Zombie {
 		if (health<=0) {
 			dead = true;
 		}
+		System.out.println(health);
 	}
 	public boolean dead() {
 		return dead;

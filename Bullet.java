@@ -7,9 +7,11 @@ public class Bullet {
 	private Rectangle rect;
 	private int dx=5;
 	private Image img;
-	public Bullet(int row, int col){
+	private int row;
+	public Bullet(int r, int col){
 		int x = col*(1200/9)+280;
-		int y=row*(800/5)+45;
+		int y=r*(800/5)+45;
+		row = r;
 		rect=new Rectangle(x,y,25,25);
 		img=getImage("bullet.png");
 	}
@@ -31,5 +33,11 @@ public class Bullet {
 	}
 	public void draw(Graphics g) {
 		g.drawImage(img, rect.x, rect.y, rect.width, rect.height, null);
+	}
+	public Rectangle getRect() {
+		return this.rect;
+	}
+	public int getRow() {
+		return this.row;
 	}
 }

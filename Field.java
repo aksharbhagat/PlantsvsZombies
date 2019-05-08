@@ -10,6 +10,7 @@ public class Field {
 	private Plant[][] p = new Plant[5][9];
 	private ArrayList <Zombie> z = new ArrayList<Zombie>();
 	private ArrayList <Bullet> b = new ArrayList<Bullet>();
+	private ArrayList <Sun> s = new ArrayList<Sun>();
 	public Field() {
 		i = getImage("Frontyard.png");
 	}
@@ -23,43 +24,64 @@ public class Field {
 		}
 		return img;
 	}
-	public void checkCollision() {
+	public void checkPlantCollision() {
 		for(Zombie zee:z) {
 			if(zee!=null) {
-		FIx THIS!!		int col = 1200/zee.getX();
+				//int col = 1200/zee.getX(); 
+				int col = ((zee.getX())/(1200/9))-1;
 				int row = zee.getRow();
-				System.out.println(zee.getX());
-				System.out.println(col);
-				System.out.println(row);
+				//System.out.println(zee.getX());
+				//System.out.println(col);
+				//System.out.println(row);
 				if (p[row][col]!=null) {
 					p[row][col].dying();
 					zee.eating();
+					checkPlantDeath(zee);
 				}
 			}
 		}
 	}
-	public void checkDeath() {
+	public void checkBulletCollision() {
+	
+		for(int i = 0; i<b.size(); i++) {
+			for(int c = 0; c< z.size(); c++) {
+				if(b.get(i).getRow() == z.get(c).getRow()) {
+					if(Math.abs(b.get(i).getRect().x-z.get(c).getX())<5) {
+						z.get(c).dying();
+						b.remove(i);
+						checkZombieDeath();
+						//System.out.println(b.size());
+					}
+				}
+			}
+		}
+	}
+	private void checkZombieDeath() {
+		for(int r=0;r<z.size();r++) {
+			if(z.get(r).dead()==true) {
+				System.out.println(z.get(r).dead());
+
+				z.remove(r);
+			}
+		}
+	}
+	private void checkPlantDeath(Zombie zee) {
 		for(int r=0;r<p.length;r++) {
 			for (int c=0;c<p[0].length;c++) {
 				if (p[r][c]!=null&&p[r][c].dead()) {
 					this.removePlant(r, c);
+					zee.ate();
 				}
 			}
 		}
-		for(int r=0;r<z.size();r++) {
-			if(z.get(r).dead()) {
-				this.removeZombie(r);
-			}
-		}
+		
 	}
-
+	
 
 	private void removePlant(int r, int c) {
 		p[r][c]=null;
 	}
-	private void removeZombie(int r) {
-		z.remove(r);
-	}
+
 	public void draw (Graphics g) {
 		g.drawImage(i, 200, 0,1200,800, null);
 		for(int r=0;r<p.length;r++) {
