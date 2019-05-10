@@ -9,10 +9,10 @@ public abstract class Plant {
 	private int col;
 	private Image image;
 	private boolean dead = false;
-	public Plant(int xtemp, int ytemp, int h, String s) {
+	public Plant(int rw, int cl, int h, String s) {
 		// TODO Auto-generated constructor stub
-		row = xtemp;
-		col = ytemp;
+		row = rw;
+		col = cl;
 		health = h;
 		image = getImage(s);		
 	}

@@ -10,7 +10,7 @@ public class Field {
 	private Plant[][] p = new Plant[5][9];
 	private ArrayList <Zombie> z = new ArrayList<Zombie>();
 	private ArrayList <Bullet> b = new ArrayList<Bullet>();
-	private ArrayList <Sun> s = new ArrayList<Sun>();
+	private static ArrayList <Sun> s = new ArrayList<Sun>();
 	public Field() {
 		i = getImage("Frontyard.png");
 	}
@@ -99,6 +99,10 @@ public class Field {
 		for(Bullet bee:b) {
 			bee.draw(g);
 		}
+		for(Sun see:s) {
+			see.draw(g);
+		}
+		
 	}
 	public void addZombie(Zombie zee) {
 		z.add(zee);
@@ -138,4 +142,7 @@ public class Field {
 	//	public Plant[][] getPlants() {
 	//		return p;
 	//	}
+	public static void addSun(int x, int y) {
+		s.add(new Sun(x,y));
+	}
 }

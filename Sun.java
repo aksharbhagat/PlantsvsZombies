@@ -7,7 +7,7 @@ public class Sun {
 	private Rectangle rect;
 	private Image img;
 	public Sun(int x, int y) {
-		rect=new Rectangle(x,y,75,75);
+		rect=new Rectangle(x,y,90,90);
 		img=getImage("sun.png");
 
 	}
@@ -22,5 +22,8 @@ public class Sun {
 			e.printStackTrace();
 		}
 		return img;
+	}
+	public void draw(Graphics g) {
+		g.drawImage(img, rect.x, rect.y, rect.width, rect.height, null);
 	}
 }
