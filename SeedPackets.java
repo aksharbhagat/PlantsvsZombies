@@ -18,11 +18,6 @@ public class SeedPackets {
 	}
 	//draw
 	//which plant is clicked
-//	private void addRectangles() {
-//		for(int i=0; i<MAX_PLANTS;i++) {
-//			seeds.add(new Rectangle(5,i*height,width,height));
-//		}
-//	}
 	public void draw(Graphics g) {
 		for (Seed s:seeds) {
 			//g.drawRect(s.getRect().x,s.getRect().y, width, height);
