@@ -9,10 +9,10 @@ public class SeedPackets {
 		addSeeds();
 	}
 	private void addSeeds() {
-		int y=0;
+		int y=5;
 		for(Type t:Type.values()) {
 			seeds.add(new Seed(t,y));
-			y+=Seed.height;
+			y+=Seed.height+1;
 		}
 		System.out.println(seeds.size());
 	}
@@ -21,7 +21,16 @@ public class SeedPackets {
 	public void draw(Graphics g) {
 		for (Seed s:seeds) {
 			//g.drawRect(s.getRect().x,s.getRect().y, width, height);
-			g.drawImage(s.getType().i, s.getRect().x, s.getRect().y, width, height, null);
+			g.drawImage(s.getType().i, s.getRect().x+5, s.getRect().y, width, height, null);
 		}
+	}
+	public Seed click(int x, int y) {
+		for(Seed s:seeds) {
+			if (s.getRect().contains(new Point(x,y))) {
+				return s;
+			}
+		}
+		return null;
+		
 	}
 }

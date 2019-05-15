@@ -11,8 +11,11 @@ public class Field {
 	private ArrayList <Zombie> z = new ArrayList<Zombie>();
 	private ArrayList <Bullet> b = new ArrayList<Bullet>();
 	private static ArrayList <Sun> s = new ArrayList<Sun>();
+	private int collectedSuns;
+	public final static int WIDTH=1200,HEIGHT=800;
 	public Field() {
 		i = getImage("Frontyard.png");
+		collectedSuns=0;
 	}
 	protected Image getImage(String fn) {
 		Image img = null;
@@ -28,7 +31,7 @@ public class Field {
 		for(Zombie zee:z) {
 			if(zee!=null) {
 				//int col = 1200/zee.getX(); 
-				int col = ((zee.getX())/(1200/9))-1;
+				int col = ((zee.getX())/(WIDTH/9))-1;
 				int row = zee.getRow();
 				//System.out.println(zee.getX());
 				//System.out.println(col);
@@ -83,7 +86,7 @@ public class Field {
 	}
 
 	public void draw (Graphics g) {
-		g.drawImage(i, 200, 0,1200,800, null);
+		g.drawImage(i, 200, 0,WIDTH,HEIGHT, null);
 		for(int r=0;r<p.length;r++) {
 			for (int c=0;c<p[0].length;c++) {
 				if(p[r][c]!=null) {
@@ -145,4 +148,5 @@ public class Field {
 	public static void addSun(int x, int y) {
 		s.add(new Sun(x,y));
 	}
+	
 }

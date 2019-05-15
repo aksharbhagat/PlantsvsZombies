@@ -13,6 +13,8 @@ public class PvZRunner {
 	private int ticks=0;
 	private Field f;
 	private SeedPackets s = new SeedPackets();
+	private Seed selectedSeed;
+	
 	public PvZRunner() {
 		start();
 	}
@@ -57,7 +59,12 @@ public class PvZRunner {
 		// after setting visible to true, you can get focus.  You need focus to consume
 		// the keystrokes hit by the user
 		panel.requestFocusInWindow();
-
+		panel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent me) {
+				clickedAt(me);
+				panel.repaint();
+			}});
 		// this timer controls the actions in the game and then repaints after each update to data
 		timer = new Timer(REFRESH_RATE, new ActionListener() {
 			@Override
@@ -68,6 +75,25 @@ public class PvZRunner {
 			}
 		});
 		timer.start();
+	}
+
+	protected void clickedAt(MouseEvent me) {
+		if(me.getX()>200&&me.getX()<200+Field.WIDTH) {
+			fieldClick(me.getX(),me.getY());
+		}
+		else if(me.getX()<200) {
+			seedClick(me.getX(),me.getY());
+		}
+	}
+	public void fieldClick(int x, int y) {
+		if(selectedSeed!=null) {
+			if(selectedSeed.getType()==Type.PEASHOOTER) {
+			//	f.addPlant(new Peashooter());
+			}
+		}
+	}
+	public void seedClick(int x, int y) {
+		selectedSeed = s.click(x, y);
 	}
 
 	protected void drawGame(Graphics g) {
