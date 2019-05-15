@@ -12,6 +12,7 @@ public class PvZRunner {
 	private final int HEIGHT = 800;
 	private int ticks=0;
 	private Field f;
+	private SeedPackets s = new SeedPackets();
 	public PvZRunner() {
 		start();
 	}
@@ -72,7 +73,7 @@ public class PvZRunner {
 	protected void drawGame(Graphics g) {
 		// TODO Auto-generated method stub
 		f.draw(g);
-
+		s.draw(g);
 	}
 
 	// this method is called every time the timer goes off (which right now is every 10 milliseconds = 100 times per second

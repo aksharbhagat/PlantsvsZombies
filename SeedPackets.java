@@ -14,6 +14,7 @@ public class SeedPackets {
 			seeds.add(new Seed(t,y));
 			y+=Seed.height;
 		}
+		System.out.println(seeds.size());
 	}
 	//draw
 	//which plant is clicked
@@ -23,9 +24,9 @@ public class SeedPackets {
 //		}
 //	}
 	public void draw(Graphics g) {
-		for (Rectangle rect:seeds) {
-			g.drawRect(rect.x, y, width, height);
-			g.drawImage(img, x, y, width, height, observer)
+		for (Seed s:seeds) {
+			//g.drawRect(s.getRect().x,s.getRect().y, width, height);
+			g.drawImage(s.getType().i, s.getRect().x, s.getRect().y, width, height, null);
 		}
 	}
 }
