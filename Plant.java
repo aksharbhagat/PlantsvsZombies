@@ -9,6 +9,7 @@ public abstract class Plant {
 	private int col;
 	private Image image;
 	private boolean dead = false;
+	protected int cost;
 	public Plant(int rw, int cl, int h, String s) {
 		// TODO Auto-generated constructor stub
 		row = rw;
@@ -40,6 +41,9 @@ public abstract class Plant {
 	}
 	public int getRow() {
 		return row;
+	}
+	public int getCost() {
+		return cost;
 	}
 	public void dying() {
 		health-=2;

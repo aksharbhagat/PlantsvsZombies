@@ -11,11 +11,10 @@ public class Field {
 	private ArrayList <Zombie> z = new ArrayList<Zombie>();
 	private ArrayList <Bullet> b = new ArrayList<Bullet>();
 	private static ArrayList <Sun> s = new ArrayList<Sun>();
-	private int collectedSuns;
+	private int collectedSuns=100;
 	public final static int WIDTH=1200,HEIGHT=800;
 	public Field() {
 		i = getImage("Frontyard.png");
-		collectedSuns=0;
 	}
 	protected Image getImage(String fn) {
 		Image img = null;
@@ -45,7 +44,7 @@ public class Field {
 		}
 	}
 	public void checkBulletCollision() {
-	
+
 		for(int i = 0; i<b.size(); i++) {
 			for(int c = 0; c< z.size(); c++) {
 				if(b.get(i).getRow() == z.get(c).getRow()) {
@@ -65,7 +64,8 @@ public class Field {
 				System.out.println(z.get(r).dead());
 
 				z.remove(r);
-			}
+			}		// TODO Auto-generated method stub
+
 		}
 	}
 	private void checkPlantDeath(Zombie zee) {
@@ -77,9 +77,9 @@ public class Field {
 				}
 			}
 		}
-		
+
 	}
-	
+
 
 	private void removePlant(int r, int c) {
 		p[r][c]=null;
@@ -105,13 +105,22 @@ public class Field {
 		for(Sun see:s) {
 			see.draw(g);
 		}
+		g.setColor(Color.WHITE);
+		g.fillRect(50, 700, 100, 50);
+		g.setColor(Color.BLACK);
+		g.setFont(new Font(Font.SANS_SERIF, 1, 50));
+		g.drawString(""+collectedSuns, 45, 745);
 		
 	}
 	public void addZombie(Zombie zee) {
 		z.add(zee);
 	}
 	public void addPlant(Plant pee) {
-		p[pee.getRow()][pee.getCol()]=pee;
+		System.out.println("addingPlant");
+		if(collectedSuns>=pee.getCost()) {
+			p[pee.getRow()][pee.getCol()]=pee;
+			collectedSuns-=pee.getCost();
+		}
 	}
 	public void addBullet(Bullet bee) {
 		b.add(bee);
@@ -145,8 +154,17 @@ public class Field {
 	//	public Plant[][] getPlants() {
 	//		return p;
 	//	}
-	public static void addSun(int x, int y) {
-		s.add(new Sun(x,y));
+	public static void addSun(int x, int y,int worth) {
+		s.add(new Sun(x,y,worth));
 	}
-	
+	public void collectSun(int x, int y) {
+		for(int i=0;i<s.size();i++) {
+			if(s.get(i).getRect().contains(new Point(x,y))) {
+				collectedSuns+=s.get(i).getWorth();
+				s.remove(i);
+				return;
+			}
+		}
+	}
+
 }

@@ -28,9 +28,9 @@ public class PvZRunner {
 
 	private void start() {
 		f = new Field();
-		f.addPlant(new Peashooter(0,0));
-		f.addPlant(new Peashooter(0,5));
-		f.addPlant(new Sunflower(1,1));
+		//f.addPlant(new Peashooter(0,0));
+		//f.addPlant(new Peashooter(0,5));
+		//f.addPlant(new Sunflower(1,1));
 		f.addZombie(new Zombie(0));
 		JFrame frame = new JFrame("PvZ");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -87,9 +87,19 @@ public class PvZRunner {
 	}
 	public void fieldClick(int x, int y) {
 		if(selectedSeed!=null) {
+			int row=(y-20)/(800/5);
+			int col=(x-205)/(1200/9);
 			if(selectedSeed.getType()==Type.PEASHOOTER) {
-			//	f.addPlant(new Peashooter());
+				f.addPlant(new Peashooter(row,col));
+				selectedSeed=null;
 			}
+			else if(selectedSeed.getType()==Type.SUNFLOWER) {
+				f.addPlant(new Sunflower(row,col));
+				selectedSeed=null;
+			}
+		}
+		else {
+			f.collectSun(x,y);
 		}
 	}
 	public void seedClick(int x, int y) {

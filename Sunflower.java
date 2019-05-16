@@ -12,6 +12,7 @@ public class Sunflower extends Plant{
 		super(row, col, 75, "sunflower.png");
 		 y=row*(800/5)+60;
 		 x = col*(1200/9)+180;
+		 cost=25;
 		start();
 	}
 	private void start() {
@@ -24,7 +25,7 @@ public class Sunflower extends Plant{
 		t.start();
 	}
 	public void spawn() {
-		Field.addSun(x,y);
+		Field.addSun(x,y,25);
 	}
 
 }
