@@ -119,6 +119,9 @@ public class Field {
 		System.out.println("addingPlant");
 		if(collectedSuns>=pee.getCost()) {
 			p[pee.getRow()][pee.getCol()]=pee;
+			if(pee instanceof Sunflower) {
+				((Sunflower) pee).start();
+			}
 			collectedSuns-=pee.getCost();
 		}
 	}

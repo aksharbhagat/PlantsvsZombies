@@ -13,6 +13,7 @@ public class PvZRunner {
 	private int ticks=0;
 	private Field f;
 	private SeedPackets s = new SeedPackets();
+	private LevelTemp lt = new LevelTemp();
 	private Seed selectedSeed;
 	
 	public PvZRunner() {
@@ -31,7 +32,7 @@ public class PvZRunner {
 		//f.addPlant(new Peashooter(0,0));
 		//f.addPlant(new Peashooter(0,5));
 		//f.addPlant(new Sunflower(1,1));
-		f.addZombie(new Zombie(0));
+		//f.addZombie(new Zombie(0));
 		JFrame frame = new JFrame("PvZ");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		panel = new JPanel() {
@@ -75,6 +76,8 @@ public class PvZRunner {
 			}
 		});
 		timer.start();
+		lt.start(f);
+		
 	}
 
 	protected void clickedAt(MouseEvent me) {

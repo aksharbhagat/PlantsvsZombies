@@ -12,7 +12,7 @@ public class Zombie {
 	private boolean dead = false;
 	public Zombie(int ytemp) {
 		// TODO Auto-generated constructor stub
-		x = 1200;
+		x = 1300;
 		row = ytemp;
 		health = 100;
 		image = getImage("zombie.png");		
