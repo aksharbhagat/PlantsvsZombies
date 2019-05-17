@@ -61,10 +61,8 @@ public class Field {
 	private void checkZombieDeath() {
 		for(int r=0;r<z.size();r++) {
 			if(z.get(r).dead()==true) {
-				System.out.println(z.get(r).dead());
-
 				z.remove(r);
-			}		// TODO Auto-generated method stub
+			}		
 
 		}
 	}

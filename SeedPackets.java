@@ -14,7 +14,6 @@ public class SeedPackets {
 			seeds.add(new Seed(t,y));
 			y+=Seed.height+1;
 		}
-		System.out.println(seeds.size());
 	}
 	//draw
 	//which plant is clicked
