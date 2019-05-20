@@ -4,10 +4,11 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 public class Zombie {
+	private final static int WALKING_SPEED = 2;
 	private int health;
 	private int row;
 	private int x;
-	private int dx=1;
+	private int dx=this.WALKING_SPEED;
 	private Image image;
 	private boolean dead = false;
 	public Zombie(int ytemp) {
@@ -42,7 +43,7 @@ public class Zombie {
 		dx=0;
 	}
 	public void ate() {
-		dx=1;
+		dx=this.WALKING_SPEED;
 	}
 	public int getX() {
 		return x;

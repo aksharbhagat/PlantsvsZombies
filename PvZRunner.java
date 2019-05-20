@@ -71,7 +71,6 @@ public class PvZRunner {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				updateGame();
-				f.checkBulletCollision();
 				panel.repaint();
 			}
 		});
@@ -113,6 +112,9 @@ public class PvZRunner {
 		// TODO Auto-generated method stub
 		f.draw(g);
 		s.draw(g);
+		if(selectedSeed!=null) {
+			selectedSeed.drawRect(g);
+		}
 	}
 
 	// this method is called every time the timer goes off (which right now is every 10 milliseconds = 100 times per second
@@ -126,6 +128,10 @@ public class PvZRunner {
 		}
 		if(ticks%(hurts/5)==0) {
 			f.moveBullets();
+		}
+		if(ticks%(hurts/2)==0) {
+			f.checkBulletCollision();
+
 		}
 		if(ticks%(hurts*20)==0) {
 			f.shoot();

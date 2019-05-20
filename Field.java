@@ -44,15 +44,15 @@ public class Field {
 		}
 	}
 	public void checkBulletCollision() {
-
-		for(int i = 0; i<b.size(); i++) {
-			for(int c = 0; c< z.size(); c++) {
-				if(b.get(i).getRow() == z.get(c).getRow()) {
-					if(Math.abs(b.get(i).getRect().x-z.get(c).getX())<5) {
-						z.get(c).dying();
-						b.remove(i);
-						checkZombieDeath();
-						//System.out.println(b.size());
+		if(!b.isEmpty()&&!z.isEmpty()) {
+			for(int i = b.size()-1; i>=0; i--) {
+				for(int c = z.size()-1; c>=0; c--) {
+					if(b.get(i).getRow() == z.get(c).getRow()) {
+						if(Math.abs(b.get(i).getRect().x-z.get(c).getX())<15) {
+							z.get(c).dying();
+							b.remove(i);
+							checkZombieDeath();
+						}
 					}
 				}
 			}
@@ -108,14 +108,14 @@ public class Field {
 		g.setColor(Color.BLACK);
 		g.setFont(new Font(Font.SANS_SERIF, 1, 50));
 		g.drawString(""+collectedSuns, 45, 745);
-		
+
 	}
 	public void addZombie(Zombie zee) {
 		z.add(zee);
 	}
 	public void addPlant(Plant pee) {
 		System.out.println("addingPlant");
-		if(collectedSuns>=pee.getCost()) {
+		if(collectedSuns>=pee.getCost()&&p[pee.getRow()][pee.getCol()]==null) {
 			p[pee.getRow()][pee.getCol()]=pee;
 			if(pee instanceof Sunflower) {
 				((Sunflower) pee).start();
@@ -135,8 +135,11 @@ public class Field {
 	}
 
 	public void moveBullets() {
-		for(Bullet bee:b) {
-			bee.move();
+		for(int i = b.size()-1; i>=0; i--) {
+			b.get(i).move();
+			if(b.get(i).getRect().x>1450) {
+				b.remove(i);
+			}
 		}
 	}
 	public void shoot() {
