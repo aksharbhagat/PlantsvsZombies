@@ -4,7 +4,7 @@ import java.awt.event.ActionListener;
 import javax.swing.Timer;
 
 public class LevelTemp {
-	private final int ZOMBIE_SPAWN_RATE = 7500;
+	private final int ZOMBIE_SPAWN_RATE = 5000;
 	private Timer t;
 	
 	public void start(Field f) {

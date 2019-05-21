@@ -27,18 +27,33 @@ public class Field {
 		return img;
 	}
 	public void checkPlantCollision() {
-		for(Zombie zee:z) {
-			if(zee!=null) {
-				//int col = 1200/zee.getX(); 
-				int col = ((zee.getX())/(WIDTH/9))-1;
-				int row = zee.getRow();
-				//System.out.println(zee.getX());
-				//System.out.println(col);
-				//System.out.println(row);
-				if (p[row][col]!=null) {
-					p[row][col].dying();
-					zee.eating();
-					checkPlantDeath(zee);
+		//		for(Zombie zee:z) {
+		//			if(zee!=null) {
+		//				//int col = 1200/zee.getX(); 
+		//				int col = ((zee.getX())/(WIDTH/9))-1;
+		//				int row = zee.getRow();
+		//				//System.out.println(zee.getX());
+		//				//System.out.println(col);
+		//				//System.out.println(row);
+		//				if (p[row][col]!=null) {
+		//					p[row][col].dying();
+		//					zee.eating();
+		//					checkPlantDeath(zee);
+		//				}
+		//			}
+		//		}
+		for(int r=0;r<p.length;r++) {
+			for (int c=0;c<p[0].length;c++) {
+				if (p[r][c]!=null) {
+					int x = c*(WIDTH/9)+275;
+					for(Zombie zee:z) {
+						//System.out.println(Math.abs(zee.getX()-x));
+						if((zee.getRow()==r)&&Math.abs(zee.getX()-x)<=10) {
+							p[r][c].dying();
+							zee.eating();
+							checkPlantDeath(zee);
+						}
+					}
 				}
 			}
 		}
@@ -46,12 +61,15 @@ public class Field {
 	public void checkBulletCollision() {
 		if(!b.isEmpty()&&!z.isEmpty()) {
 			for(int i = b.size()-1; i>=0; i--) {
-				for(int c = z.size()-1; c>=0; c--) {
-					if(b.get(i).getRow() == z.get(c).getRow()) {
-						if(Math.abs(b.get(i).getRect().x-z.get(c).getX())<15) {
+				Bullet temp = b.get(i);
+				for(int c = z.size()-1; c>=0; c--) {			
+					Zombie ztemp = z.get(c);
+					if(temp.getRow() == ztemp.getRow()) {
+						if(Math.abs(temp.getRect().x-z.get(c).getX())<20) {
 							z.get(c).dying();
 							b.remove(i);
 							checkZombieDeath();
+							break;
 						}
 					}
 				}
@@ -59,9 +77,9 @@ public class Field {
 		}
 	}
 	private void checkZombieDeath() {
-		for(int r=0;r<z.size();r++) {
-			if(z.get(r).dead()==true) {
-				z.remove(r);
+		for(int c = z.size()-1; c>=0; c--) {
+			if(z.get(c).dead()==true) {
+				z.remove(c);
 			}		
 
 		}

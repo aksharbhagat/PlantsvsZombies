@@ -41,6 +41,7 @@ public class Zombie {
 	}
 	public void eating() {
 		dx=0;
+		System.out.println("eating");
 	}
 	public void ate() {
 		dx=this.WALKING_SPEED;

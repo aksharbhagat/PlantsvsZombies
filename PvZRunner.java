@@ -125,12 +125,14 @@ public class PvZRunner {
 			f.moveZombies();
 			f.checkPlantCollision();
 			
+			
 		}
 		if(ticks%(hurts/5)==0) {
 			f.moveBullets();
+			f.checkBulletCollision();
 		}
 		if(ticks%(hurts/2)==0) {
-			f.checkBulletCollision();
+			//f.checkBulletCollision();
 
 		}
 		if(ticks%(hurts*20)==0) {
