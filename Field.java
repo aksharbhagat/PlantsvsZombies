@@ -12,6 +12,7 @@ public class Field {
 	private ArrayList <Bullet> b = new ArrayList<Bullet>();
 	private static ArrayList <Sun> s = new ArrayList<Sun>();
 	private int collectedSuns=100;
+	private Rectangle shovel = new Rectangle(50, 600, 100, 100);
 	public final static int WIDTH=1200,HEIGHT=800;
 	public Field() {
 		i = getImage("Frontyard.png");
@@ -103,16 +104,16 @@ public class Field {
 
 	public void draw (Graphics g) {
 		g.drawImage(i, 200, 0,WIDTH,HEIGHT, null);
+		for(Zombie zee:z) {
+			if(zee!=null) {
+				zee.draw(g);
+			}
+		}
 		for(int r=0;r<p.length;r++) {
 			for (int c=0;c<p[0].length;c++) {
 				if(p[r][c]!=null) {
 					p[r][c].draw(g);
 				}
-			}
-		}
-		for(Zombie zee:z) {
-			if(zee!=null) {
-				zee.draw(g);
 			}
 		}
 		for(Bullet bee:b) {
@@ -121,6 +122,8 @@ public class Field {
 		for(Sun see:s) {
 			see.draw(g);
 		}
+		Image shove = this.getImage("Shovel.jpg");
+		g.drawImage(shove, shovel.x, shovel.y, shovel.width, shovel.height, null);
 		g.setColor(Color.WHITE);
 		g.fillRect(50, 700, 100, 50);
 		g.setColor(Color.BLACK);
