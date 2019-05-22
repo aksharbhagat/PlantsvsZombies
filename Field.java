@@ -12,7 +12,7 @@ public class Field {
 	private ArrayList <Bullet> b = new ArrayList<Bullet>();
 	private static ArrayList <Sun> s = new ArrayList<Sun>();
 	private int collectedSuns=100;
-	private Rectangle shovel = new Rectangle(50, 600, 100, 100);
+	private static final Rectangle SHOVEL = new Rectangle(50, 600, 100, 100);
 	public final static int WIDTH=1200,HEIGHT=800;
 	public Field() {
 		i = getImage("Frontyard.png");
@@ -123,7 +123,11 @@ public class Field {
 			see.draw(g);
 		}
 		Image shove = this.getImage("Shovel.jpg");
-		g.drawImage(shove, shovel.x, shovel.y, shovel.width, shovel.height, null);
+		g.drawImage(shove, SHOVEL.x, SHOVEL.y, SHOVEL.width, SHOVEL.height, null);
+		if(PvZRunner.shovelSelected) {
+			g.setColor(Color.YELLOW);
+			g.drawRect(SHOVEL.x, SHOVEL.y, SHOVEL.width, SHOVEL.height);
+		}
 		g.setColor(Color.WHITE);
 		g.fillRect(50, 700, 100, 50);
 		g.setColor(Color.BLACK);
@@ -190,6 +194,18 @@ public class Field {
 				return;
 			}
 		}
+	}
+	public void shovel(int row, int col) {
+		if(p[row][col]!=null) {
+			
+			if(p[row][col] instanceof Sunflower) {
+				((Sunflower) (p[row][col])).stop();
+			}
+			p[row][col]=null;
+		}
+	}
+	public Rectangle getShovel() {
+		return SHOVEL;
 	}
 
 }

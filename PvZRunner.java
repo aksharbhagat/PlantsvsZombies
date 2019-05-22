@@ -15,6 +15,7 @@ public class PvZRunner {
 	private SeedPackets s = new SeedPackets();
 	private LevelTemp lt = new LevelTemp();
 	private Seed selectedSeed;
+	static boolean shovelSelected=false;
 	
 	public PvZRunner() {
 		start();
@@ -80,7 +81,11 @@ public class PvZRunner {
 	}
 
 	protected void clickedAt(MouseEvent me) {
-		if(me.getX()>200&&me.getX()<200+Field.WIDTH) {
+		if(f.getShovel().contains(me.getPoint())) {
+			shovelSelected=!shovelSelected;
+			selectedSeed=null;
+		}
+		else if(me.getX()>200&&me.getX()<200+Field.WIDTH) {
 			fieldClick(me.getX(),me.getY());
 		}
 		else if(me.getX()<200) {
@@ -88,9 +93,9 @@ public class PvZRunner {
 		}
 	}
 	public void fieldClick(int x, int y) {
+		int row=(y-20)/(800/5);
+		int col=(x-205)/(1200/9);
 		if(selectedSeed!=null) {
-			int row=(y-20)/(800/5);
-			int col=(x-205)/(1200/9);
 			if(selectedSeed.getType()==Type.PEASHOOTER) {
 				f.addPlant(new Peashooter(row,col));
 				selectedSeed=null;
@@ -100,12 +105,17 @@ public class PvZRunner {
 				selectedSeed=null;
 			}
 		}
+		else if(shovelSelected) {
+			f.shovel(row,col);
+			this.shovelSelected=false;
+		}
 		else {
 			f.collectSun(x,y);
 		}
 	}
 	public void seedClick(int x, int y) {
 		selectedSeed = s.click(x, y);
+		this.shovelSelected=false;
 	}
 
 	protected void drawGame(Graphics g) {

@@ -27,5 +27,8 @@ public class Sunflower extends Plant{
 	private void spawn() {
 		Field.addSun(x,y,25);
 	}
+	public void stop() {
+		t.stop();
+	}
 
 }
