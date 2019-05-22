@@ -6,7 +6,7 @@ import javax.swing.Timer;
 public class LevelTemp {
 	private final int ZOMBIE_SPAWN_RATE = 5000;
 	private Timer t;
-	
+
 	public void start(Field f) {
 		t=new Timer(ZOMBIE_SPAWN_RATE, new ActionListener() {
 			@Override
@@ -18,7 +18,13 @@ public class LevelTemp {
 	}
 
 	public void addZombies(Field f) {
-		int x = (int) (Math.random()*5);
-		f.addZombie(new Zombie(x));
+		int col = (int) (Math.random()*5);
+		int type = (int)(Math.random()*5);
+		if(type<1) {
+			f.addZombie(new ConeZombie(col));
+		}
+		else {
+			f.addZombie(new Zombie(col));
+		}
 	}
 }

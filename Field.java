@@ -11,7 +11,7 @@ public class Field {
 	private ArrayList <Zombie> z = new ArrayList<Zombie>();
 	private ArrayList <Bullet> b = new ArrayList<Bullet>();
 	private static ArrayList <Sun> s = new ArrayList<Sun>();
-	private int collectedSuns=100;
+	private int collectedSuns=200;
 	private static final Rectangle SHOVEL = new Rectangle(50, 600, 100, 100);
 	public final static int WIDTH=1200,HEIGHT=800;
 	public Field() {
@@ -45,17 +45,19 @@ public class Field {
 		//		}
 		for(int r=0;r<p.length;r++) {
 			for (int c=0;c<p[0].length;c++) {
-				if (p[r][c]!=null) {
-					int x = c*(WIDTH/9)+275;
-					for(Zombie zee:z) {
-						//System.out.println(Math.abs(zee.getX()-x));
-						if((zee.getRow()==r)&&Math.abs(zee.getX()-x)<=10) {
+
+				int x = c*(WIDTH/9)+275;
+				for(Zombie zee:z) {
+					//System.out.println(Math.abs(zee.getX()-x));
+					if((zee.getRow()==r)&&Math.abs(zee.getX()-x)<=10) {
+						checkPlantDeath(zee);
+						if(p[r][c]!=null) {
 							p[r][c].dying();
 							zee.eating();
-							checkPlantDeath(zee);
 						}
 					}
 				}
+
 			}
 		}
 	}
@@ -91,6 +93,10 @@ public class Field {
 				if (p[r][c]!=null&&p[r][c].dead()) {
 					this.removePlant(r, c);
 					zee.ate();
+
+				}
+				else if(p[r][c]==null) {
+					zee.ate();
 				}
 			}
 		}
@@ -104,16 +110,16 @@ public class Field {
 
 	public void draw (Graphics g) {
 		g.drawImage(i, 200, 0,WIDTH,HEIGHT, null);
-		for(Zombie zee:z) {
-			if(zee!=null) {
-				zee.draw(g);
-			}
-		}
 		for(int r=0;r<p.length;r++) {
 			for (int c=0;c<p[0].length;c++) {
 				if(p[r][c]!=null) {
 					p[r][c].draw(g);
 				}
+			}
+		}
+		for(Zombie zee:z) {
+			if(zee!=null) {
+				zee.draw(g);
 			}
 		}
 		for(Bullet bee:b) {
@@ -169,9 +175,11 @@ public class Field {
 	public void shoot() {
 		for(Plant[]big:p) {
 			for (Plant pee:big) {
-				if(pee!=null&&pee instanceof Shoot) {
-					Shoot s = (Shoot)pee;
-					this.addBullet(s.fire());
+				for(Zombie zee:z) {
+					if(pee!=null&&pee instanceof Shoot&&zee.getRow()==pee.getRow()) {
+						Shoot s = (Shoot)pee;
+						this.addBullet(s.fire());
+					}
 				}
 			}
 		}
@@ -196,7 +204,7 @@ public class Field {
 	}
 	public void shovel(int row, int col) {
 		if(p[row][col]!=null) {
-			
+
 			if(p[row][col] instanceof Sunflower) {
 				((Sunflower) (p[row][col])).stop();
 			}
