@@ -11,7 +11,7 @@ public class Field {
 	private static ArrayList <Zombie> z = new ArrayList<Zombie>();
 	private static ArrayList <Bullet> b = new ArrayList<Bullet>();
 	private static ArrayList <Sun> s = new ArrayList<Sun>();
-	private int collectedSuns=10000;
+	private int collectedSuns=150;
 	private static final Rectangle SHOVEL = new Rectangle(50, 600, 100, 100);
 	public final static int WIDTH=1200,HEIGHT=800;
 	public Field() {
