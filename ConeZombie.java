@@ -1,7 +1,3 @@
-import java.awt.Image;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
 
 public class ConeZombie extends Zombie {
 

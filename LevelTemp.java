@@ -6,7 +6,7 @@ import javax.swing.Timer;
 public class LevelTemp {
 	private final int ZOMBIE_SPAWN_RATE = 5000;
 	private Timer t;
-	private int totalZombies=0;
+	//private int totalZombies=0;
 	public void start(Field f) {
 		t=new Timer(ZOMBIE_SPAWN_RATE, new ActionListener() {
 			@Override
@@ -27,7 +27,7 @@ public class LevelTemp {
 		else {
 			f.addZombie(new Zombie(col));
 		}
-		totalZombies++;
+		//totalZombies++;
 		
 		//t.setDelay(t.getDelay()-(int) Math.pow((Math.sqrt(totalZombies)),3.0));
 		
