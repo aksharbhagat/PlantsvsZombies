@@ -3,7 +3,6 @@ import java.util.*;
 
 public class SeedPackets {
 	private ArrayList<Seed> seeds = new ArrayList<Seed>();
-	private final int MAX_PLANTS = 2;
 	private final int height=100,width=190;
 	public SeedPackets() {
 		addSeeds();

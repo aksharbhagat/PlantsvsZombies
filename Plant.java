@@ -4,6 +4,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 public abstract class Plant {
+	private int startinghealth;
 	private int health;
 	private int row;
 	private int col;
@@ -14,6 +15,7 @@ public abstract class Plant {
 		// TODO Auto-generated constructor stub
 		row = rw;
 		col = cl;
+		startinghealth= h;
 		health = h;
 		image = getImage(s);		
 	}
@@ -34,7 +36,7 @@ public abstract class Plant {
 		int x = col*(1200/9)+205;
 		g.drawImage(image, x, y, 100, 110, null);
 		g.setColor(Color.BLUE);
-		g.fillRect(x, y-10, health, 5);
+		g.fillRect(x, y-10, (health*100)/startinghealth, 5);
 	}
 	public int getCol() {
 		return col;

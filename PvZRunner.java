@@ -104,6 +104,10 @@ public class PvZRunner {
 				f.addPlant(new Sunflower(row,col));
 				selectedSeed=null;
 			}
+			else if(selectedSeed.getType()==Type.WALNUT) {
+				f.addPlant(new Walnut(row,col));
+				selectedSeed=null;
+			}
 		}
 		else if(shovelSelected) {
 			f.shovel(row,col);

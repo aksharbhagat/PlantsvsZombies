@@ -139,7 +139,6 @@ public class Field {
 		z.add(zee);
 	}
 	public void addPlant(Plant pee) {
-		System.out.println("addingPlant");
 		if(collectedSuns>=pee.getCost()&&p[pee.getRow()][pee.getCol()]==null) {
 			p[pee.getRow()][pee.getCol()]=pee;
 			if(pee instanceof Sunflower) {

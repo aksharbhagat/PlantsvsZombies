@@ -9,7 +9,7 @@ public class Sunflower extends Plant{
 	private Timer t;
 	private int x,y;
 	public Sunflower(int row, int col) {
-		super(row, col, 75, "sunflower.png");
+		super(row, col, 100, "sunflower.png");
 		 y=row*(800/5)+60;
 		 x = col*(1200/9)+180;
 		 cost=25;
