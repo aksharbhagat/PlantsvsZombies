@@ -137,21 +137,19 @@ public class PvZRunner {
 		int hurts = 100/REFRESH_RATE;
 		if(ticks%hurts == 0) {
 			f.moveZombies();
-			f.checkPlantCollision();
-			
-			
+			f.checkPlantCollision();	
 		}
 		if(ticks%(hurts/5)==0) {
 			f.moveBullets();
 			f.checkBulletCollision();
 		}
-		if(ticks%(hurts/2)==0) {
-			//f.checkBulletCollision();
-
-		}
-		if(ticks%(hurts*20)==0) {
-			f.shoot();
-			
-		}
+//		if(ticks%(hurts/2)==0) {
+//			//f.checkBulletCollision();
+//
+//		}
+//		if(ticks%(hurts*5)==0) {
+//			//f.shoot();
+//			//f.checkIfInRow();
+//		}
 	}
 }

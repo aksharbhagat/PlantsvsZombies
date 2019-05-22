@@ -3,7 +3,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
-public class Sunflower extends Plant{
+public class Sunflower extends Plant implements Timed{
 	//private ActionListener a=null;
 	private final int SUN_SPAWN_RATE = 10000;
 	private Timer t;

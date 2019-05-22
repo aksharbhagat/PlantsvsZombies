@@ -8,10 +8,10 @@ import javax.imageio.ImageIO;
 public class Field {
 	private Image i;
 	private Plant[][] p = new Plant[5][9];
-	private ArrayList <Zombie> z = new ArrayList<Zombie>();
-	private ArrayList <Bullet> b = new ArrayList<Bullet>();
+	private static ArrayList <Zombie> z = new ArrayList<Zombie>();
+	private static ArrayList <Bullet> b = new ArrayList<Bullet>();
 	private static ArrayList <Sun> s = new ArrayList<Sun>();
-	private int collectedSuns=200;
+	private int collectedSuns=10000;
 	private static final Rectangle SHOVEL = new Rectangle(50, 600, 100, 100);
 	public final static int WIDTH=1200,HEIGHT=800;
 	public Field() {
@@ -147,13 +147,13 @@ public class Field {
 	public void addPlant(Plant pee) {
 		if(collectedSuns>=pee.getCost()&&p[pee.getRow()][pee.getCol()]==null) {
 			p[pee.getRow()][pee.getCol()]=pee;
-			if(pee instanceof Sunflower) {
-				((Sunflower) pee).start();
+			if(pee instanceof Timed) {
+				((Timed) pee).start();
 			}
 			collectedSuns-=pee.getCost();
 		}
 	}
-	public void addBullet(Bullet bee) {
+	public static void addBullet(Bullet bee) {
 		b.add(bee);
 	}
 	public void moveZombies() {
@@ -172,18 +172,18 @@ public class Field {
 			}
 		}
 	}
-	public void shoot() {
-		for(Plant[]big:p) {
-			for (Plant pee:big) {
-				for(Zombie zee:z) {
-					if(pee!=null&&pee instanceof Shoot&&zee.getRow()==pee.getRow()) {
-						Shoot s = (Shoot)pee;
-						this.addBullet(s.fire());
-					}
-				}
-			}
-		}
-	}
+	//	public void shoot() {
+	//		for(Plant[]big:p) {
+	//			for (Plant pee:big) {
+	//				for(Zombie zee:z) {
+	//					if(pee!=null&&pee instanceof Shoot&&zee.getRow()==pee.getRow()) {
+	//						Shoot s = (Shoot)pee;
+	//						this.addBullet(s.fire());
+	//					}
+	//				}
+	//			}
+	//		}
+	//	}
 	//	public Zombie[][] getZombies() {
 	//		return z;
 	//	}
@@ -205,7 +205,7 @@ public class Field {
 	public void shovel(int row, int col) {
 		if(p[row][col]!=null) {
 
-			if(p[row][col] instanceof Sunflower) {
+			if(p[row][col] instanceof Timed) {
 				((Sunflower) (p[row][col])).stop();
 			}
 			p[row][col]=null;
@@ -214,5 +214,34 @@ public class Field {
 	public Rectangle getShovel() {
 		return SHOVEL;
 	}
-
+	//	public void checkIfInRow() {
+	//		for(Plant[]big:p) {
+	//			for (Plant pee:big) {
+	//				if(pee!=null&&pee instanceof Peashooter) {
+	//					boolean inRow=false;
+	//					for(Zombie zee:z) {
+	//						if(pee.getRow()==zee.getRow()) {
+	//							((Peashooter) pee).setinRow(true);
+	//							inRow=true;
+	//							break;
+	//						}
+	//					}
+	//					if(!inRow) {
+	//						((Peashooter) pee).setinRow(false);
+	//					}
+	//
+	//				}
+	//			}
+	//		}
+	//	}
+	public static boolean checkIfInRow(int plantRow) {
+		for(Zombie zee:z) {
+			if(plantRow==zee.getRow()) {
+				return true;
+			}
+		}
+		return false;
+	}
 }
+
+
