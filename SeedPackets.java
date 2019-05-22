@@ -3,7 +3,6 @@ import java.util.*;
 
 public class SeedPackets {
 	private ArrayList<Seed> seeds = new ArrayList<Seed>();
-	private final int MAX_PLANTS = 2;
 	private final int height=100,width=190;
 	public SeedPackets() {
 		addSeeds();
@@ -14,7 +13,6 @@ public class SeedPackets {
 			seeds.add(new Seed(t,y));
 			y+=Seed.height+1;
 		}
-		System.out.println(seeds.size());
 	}
 	//draw
 	//which plant is clicked

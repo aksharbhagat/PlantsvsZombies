@@ -8,14 +8,14 @@ import javax.imageio.ImageIO;
 public class Field {
 	private Image i;
 	private Plant[][] p = new Plant[5][9];
-	private ArrayList <Zombie> z = new ArrayList<Zombie>();
-	private ArrayList <Bullet> b = new ArrayList<Bullet>();
+	private static ArrayList <Zombie> z = new ArrayList<Zombie>();
+	private static ArrayList <Bullet> b = new ArrayList<Bullet>();
 	private static ArrayList <Sun> s = new ArrayList<Sun>();
-	private int collectedSuns;
+	private int collectedSuns=10000;
+	private static final Rectangle SHOVEL = new Rectangle(50, 600, 100, 100);
 	public final static int WIDTH=1200,HEIGHT=800;
 	public Field() {
 		i = getImage("Frontyard.png");
-		collectedSuns=0;
 	}
 	protected Image getImage(String fn) {
 		Image img = null;
@@ -28,44 +28,63 @@ public class Field {
 		return img;
 	}
 	public void checkPlantCollision() {
-		for(Zombie zee:z) {
-			if(zee!=null) {
-				//int col = 1200/zee.getX(); 
-				int col = ((zee.getX())/(WIDTH/9))-1;
-				int row = zee.getRow();
-				//System.out.println(zee.getX());
-				//System.out.println(col);
-				//System.out.println(row);
-				if (p[row][col]!=null) {
-					p[row][col].dying();
-					zee.eating();
-					checkPlantDeath(zee);
+		//		for(Zombie zee:z) {
+		//			if(zee!=null) {
+		//				//int col = 1200/zee.getX(); 
+		//				int col = ((zee.getX())/(WIDTH/9))-1;
+		//				int row = zee.getRow();
+		//				//System.out.println(zee.getX());
+		//				//System.out.println(col);
+		//				//System.out.println(row);
+		//				if (p[row][col]!=null) {
+		//					p[row][col].dying();
+		//					zee.eating();
+		//					checkPlantDeath(zee);
+		//				}
+		//			}
+		//		}
+		for(int r=0;r<p.length;r++) {
+			for (int c=0;c<p[0].length;c++) {
+
+				int x = c*(WIDTH/9)+275;
+				for(Zombie zee:z) {
+					//System.out.println(Math.abs(zee.getX()-x));
+					if((zee.getRow()==r)&&Math.abs(zee.getX()-x)<=10) {
+						checkPlantDeath(zee);
+						if(p[r][c]!=null) {
+							p[r][c].dying();
+							zee.eating();
+						}
+					}
 				}
+
 			}
 		}
 	}
 	public void checkBulletCollision() {
-	
-		for(int i = 0; i<b.size(); i++) {
-			for(int c = 0; c< z.size(); c++) {
-				if(b.get(i).getRow() == z.get(c).getRow()) {
-					if(Math.abs(b.get(i).getRect().x-z.get(c).getX())<5) {
-						z.get(c).dying();
-						b.remove(i);
-						checkZombieDeath();
-						//System.out.println(b.size());
+		if(!b.isEmpty()&&!z.isEmpty()) {
+			for(int i = b.size()-1; i>=0; i--) {
+				Bullet temp = b.get(i);
+				for(int c = z.size()-1; c>=0; c--) {			
+					Zombie ztemp = z.get(c);
+					if(temp.getRow() == ztemp.getRow()) {
+						if(Math.abs(temp.getRect().x-z.get(c).getX())<20) {
+							z.get(c).dying();
+							b.remove(i);
+							checkZombieDeath();
+							break;
+						}
 					}
 				}
 			}
 		}
 	}
 	private void checkZombieDeath() {
-		for(int r=0;r<z.size();r++) {
-			if(z.get(r).dead()==true) {
-				System.out.println(z.get(r).dead());
+		for(int c = z.size()-1; c>=0; c--) {
+			if(z.get(c).dead()==true) {
+				z.remove(c);
+			}		
 
-				z.remove(r);
-			}
 		}
 	}
 	private void checkPlantDeath(Zombie zee) {
@@ -74,12 +93,16 @@ public class Field {
 				if (p[r][c]!=null&&p[r][c].dead()) {
 					this.removePlant(r, c);
 					zee.ate();
+
+				}
+				else if(p[r][c]==null) {
+					zee.ate();
 				}
 			}
 		}
-		
+
 	}
-	
+
 
 	private void removePlant(int r, int c) {
 		p[r][c]=null;
@@ -105,15 +128,32 @@ public class Field {
 		for(Sun see:s) {
 			see.draw(g);
 		}
-		
+		Image shove = this.getImage("Shovel.jpg");
+		g.drawImage(shove, SHOVEL.x, SHOVEL.y, SHOVEL.width, SHOVEL.height, null);
+		if(PvZRunner.shovelSelected) {
+			g.setColor(Color.YELLOW);
+			g.drawRect(SHOVEL.x, SHOVEL.y, SHOVEL.width, SHOVEL.height);
+		}
+		g.setColor(Color.WHITE);
+		g.fillRect(50, 700, 100, 50);
+		g.setColor(Color.BLACK);
+		g.setFont(new Font(Font.SANS_SERIF, 1, 50));
+		g.drawString(""+collectedSuns, 45, 745);
+
 	}
 	public void addZombie(Zombie zee) {
 		z.add(zee);
 	}
 	public void addPlant(Plant pee) {
-		p[pee.getRow()][pee.getCol()]=pee;
+		if(collectedSuns>=pee.getCost()&&p[pee.getRow()][pee.getCol()]==null) {
+			p[pee.getRow()][pee.getCol()]=pee;
+			if(pee instanceof Timed) {
+				((Timed) pee).start();
+			}
+			collectedSuns-=pee.getCost();
+		}
 	}
-	public void addBullet(Bullet bee) {
+	public static void addBullet(Bullet bee) {
 		b.add(bee);
 	}
 	public void moveZombies() {
@@ -125,28 +165,83 @@ public class Field {
 	}
 
 	public void moveBullets() {
-		for(Bullet bee:b) {
-			bee.move();
-		}
-	}
-	public void shoot() {
-		for(Plant[]big:p) {
-			for (Plant pee:big) {
-				if(pee!=null&&pee instanceof Shoot) {
-					Shoot s = (Shoot)pee;
-					this.addBullet(s.fire());
-				}
+		for(int i = b.size()-1; i>=0; i--) {
+			b.get(i).move();
+			if(b.get(i).getRect().x>1450) {
+				b.remove(i);
 			}
 		}
 	}
+	//	public void shoot() {
+	//		for(Plant[]big:p) {
+	//			for (Plant pee:big) {
+	//				for(Zombie zee:z) {
+	//					if(pee!=null&&pee instanceof Shoot&&zee.getRow()==pee.getRow()) {
+	//						Shoot s = (Shoot)pee;
+	//						this.addBullet(s.fire());
+	//					}
+	//				}
+	//			}
+	//		}
+	//	}
 	//	public Zombie[][] getZombies() {
 	//		return z;
 	//	}
 	//	public Plant[][] getPlants() {
 	//		return p;
 	//	}
-	public static void addSun(int x, int y) {
-		s.add(new Sun(x,y));
+	public static void addSun(int x, int y,int worth) {
+		s.add(new Sun(x,y,worth));
 	}
-	
+	public void collectSun(int x, int y) {
+		for(int i=0;i<s.size();i++) {
+			if(s.get(i).getRect().contains(new Point(x,y))) {
+				collectedSuns+=s.get(i).getWorth();
+				s.remove(i);
+				return;
+			}
+		}
+	}
+	public void shovel(int row, int col) {
+		if(p[row][col]!=null) {
+
+			if(p[row][col] instanceof Timed) {
+				((Sunflower) (p[row][col])).stop();
+			}
+			p[row][col]=null;
+		}
+	}
+	public Rectangle getShovel() {
+		return SHOVEL;
+	}
+	//	public void checkIfInRow() {
+	//		for(Plant[]big:p) {
+	//			for (Plant pee:big) {
+	//				if(pee!=null&&pee instanceof Peashooter) {
+	//					boolean inRow=false;
+	//					for(Zombie zee:z) {
+	//						if(pee.getRow()==zee.getRow()) {
+	//							((Peashooter) pee).setinRow(true);
+	//							inRow=true;
+	//							break;
+	//						}
+	//					}
+	//					if(!inRow) {
+	//						((Peashooter) pee).setinRow(false);
+	//					}
+	//
+	//				}
+	//			}
+	//		}
+	//	}
+	public static boolean checkIfInRow(int plantRow) {
+		for(Zombie zee:z) {
+			if(plantRow==zee.getRow()) {
+				return true;
+			}
+		}
+		return false;
+	}
 }
+
+

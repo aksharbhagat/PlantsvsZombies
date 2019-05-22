@@ -15,5 +15,10 @@ public class Seed {
 	public Rectangle getRect() {
 		return rect;
 	}
+	public void drawRect(Graphics g) {
+		g.setColor(Color.YELLOW);
+		g.drawRect(rect.x, rect.y, width-5, height);
+		
+	}
 	
 }

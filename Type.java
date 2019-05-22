@@ -4,10 +4,10 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 public enum Type {
-	PEASHOOTER("peashooterseed.png",2),SUNFLOWER("sunflowerseed.png",1);
+	PEASHOOTER("peashooterseed.png"),SUNFLOWER("sunflowerseed.png"),WALNUT("walnutseed.png");
 	public Image i;
 	public int sunCost;
-	private Type(String fn, int sun) {
+	private Type(String fn) {
 		Image img = null;
 		try {
 
@@ -18,7 +18,6 @@ public enum Type {
 			e.printStackTrace();
 		}
 		i=img;
-		sunCost=sun;
 	}
 }
 

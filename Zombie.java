@@ -4,18 +4,31 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 public class Zombie {
+	private final static int WALKING_SPEED = 1;
 	private int health;
+	private int startinghealth;
 	private int row;
 	private int x;
-	private int dx=1;
+	private final int height;
+	private int dx=this.WALKING_SPEED;
 	private Image image;
 	private boolean dead = false;
 	public Zombie(int ytemp) {
 		// TODO Auto-generated constructor stub
-		x = 1200;
+		x = 1300;
 		row = ytemp;
 		health = 100;
+		startinghealth=health;
 		image = getImage("zombie.png");		
+		height=140;
+	}
+	public Zombie(int ytemp, int h, String fn, int hei) {
+		x = 1300;
+		row = ytemp;
+		health = h;
+		startinghealth=h;
+		image = getImage(fn);	
+		height=hei;
 	}
 	protected  Image getImage(String fn) {
 		Image img = null;
@@ -31,9 +44,9 @@ public class Zombie {
 	}
 	public void draw(Graphics g) {
 		int y=row*(800/5)+20;
-		g.drawImage(image, x, y-10, 100, 140, null);
+		g.drawImage(image, x, y-10, 100, height, null);
 		g.setColor(Color.RED);
-		g.fillRect(x-10, y-15, (health*4)/5, 5);
+		g.fillRect(x-10, y-15, (health*100)/startinghealth, 5);
 	}
 	public void walk() {
 		x-=dx;
@@ -42,7 +55,7 @@ public class Zombie {
 		dx=0;
 	}
 	public void ate() {
-		dx=1;
+		dx=this.WALKING_SPEED;
 	}
 	public int getX() {
 		return x;
@@ -55,7 +68,6 @@ public class Zombie {
 		if (health<=0) {
 			dead = true;
 		}
-		System.out.println(health);
 	}
 	public boolean dead() {
 		return dead;
