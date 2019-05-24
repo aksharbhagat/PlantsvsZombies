@@ -5,7 +5,7 @@ import javax.swing.Timer;
 
 
 public class Peashooter extends Plant implements Timed{
-	private final int BULLET_SPAWN_RATE = 4000;
+	private final int BULLET_SPAWN_RATE = 3000;
 	private Timer t;
 	public Peashooter(int row, int col) {
 		super(row, col, 100, "peashooter2.png");

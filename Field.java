@@ -131,11 +131,13 @@ public class Field {
 		g.drawImage(shove, SHOVEL.x, SHOVEL.y, SHOVEL.width, SHOVEL.height, null);
 		if(PvZRunner.shovelSelected) {
 			g.setColor(Color.YELLOW);
-			g.drawRect(SHOVEL.x, SHOVEL.y, SHOVEL.width, SHOVEL.height);
+			int thickNess=4;
+			for (int i = 0; i < thickNess; i++) {
+				g.drawRect(SHOVEL.x + i, SHOVEL.y + i, SHOVEL.width - 2 * i, SHOVEL.height - 2 * i);
+			}
 		}
+
 		g.setColor(Color.WHITE);
-		g.fillRect(50, 700, 100, 50);
-		g.setColor(Color.BLACK);
 		g.setFont(new Font(Font.SANS_SERIF, 1, 50));
 		g.drawString(""+collectedSuns, 45, 745);
 
@@ -159,6 +161,9 @@ public class Field {
 		for(Zombie zo:z) {
 			if(zo != null) {
 				zo.walk();
+				if(zo.getX()<205) {
+					PvZRunner.gameOver();
+				}
 			}
 		}
 	}
@@ -205,7 +210,7 @@ public class Field {
 		if(p[row][col]!=null) {
 
 			if(p[row][col] instanceof Timed) {
-				((Sunflower) (p[row][col])).stop();
+				((Timed) (p[row][col])).stop();
 			}
 			p[row][col]=null;
 		}

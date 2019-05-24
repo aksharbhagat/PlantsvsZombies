@@ -6,8 +6,8 @@ import javax.swing.*;
 public class PvZRunner {
 	private static final int REFRESH_RATE = 8;
 	JFrame frame;
-	JPanel panel;
-	Timer timer;
+	static JPanel panel;
+	static Timer timer;
 	private final int WIDTH = 1500;
 	private final int HEIGHT = 800;
 	private int ticks=0;
@@ -16,7 +16,7 @@ public class PvZRunner {
 	private LevelTemp lt = new LevelTemp();
 	private Seed selectedSeed;
 	static boolean shovelSelected=false;
-	
+	static boolean gameOver=false;
 	public PvZRunner() {
 		start();
 	}
@@ -41,11 +41,14 @@ public class PvZRunner {
 			public void paintComponent(Graphics g) {
 				super.paintComponent(g);
 				drawGame(g);
+				if(gameOver) {
+					endgame(g);
+				}
 				Toolkit.getDefaultToolkit().sync();
 			}
 		};
 		// random color to the background
-		panel.setBackground(new Color(20, 15, 120));
+		panel.setBackground(new Color(0, 0, 0));
 
 		// so that the frame isn't minimized
 		panel.setPreferredSize(new Dimension(WIDTH,HEIGHT));
@@ -64,8 +67,10 @@ public class PvZRunner {
 		panel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent me) {
-				clickedAt(me);
-				panel.repaint();
+				if(!gameOver) {
+					clickedAt(me);
+					panel.repaint();
+				}
 			}});
 		// this timer controls the actions in the game and then repaints after each update to data
 		timer = new Timer(REFRESH_RATE, new ActionListener() {
@@ -77,7 +82,12 @@ public class PvZRunner {
 		});
 		timer.start();
 		lt.start(f);
-		
+
+	}
+
+	protected void endgame(Graphics g) {
+		// TODO Auto-generated method stub
+		g.drawImage(f.getImage("gameOver.png"), 450, 150, 564, 468, null);
 	}
 
 	protected void clickedAt(MouseEvent me) {
@@ -136,20 +146,26 @@ public class PvZRunner {
 		ticks++;// keeps track of the number of times the timer has gone off
 		int hurts = 100/REFRESH_RATE;
 		if(ticks%hurts == 0) {
-			f.moveZombies();
 			f.checkPlantCollision();	
 		}
 		if(ticks%(hurts/5)==0) {
 			f.moveBullets();
 			f.checkBulletCollision();
 		}
-//		if(ticks%(hurts/2)==0) {
-//			//f.checkBulletCollision();
-//
-//		}
-//		if(ticks%(hurts*5)==0) {
-//			//f.shoot();
-//			//f.checkIfInRow();
-//		}
+		if(ticks%(hurts/2)==0) {
+			//f.checkBulletCollision();
+			f.moveZombies();
+
+		}
+		//		if(ticks%(hurts*5)==0) {
+		//			//f.shoot();
+		//			//f.checkIfInRow();
+		//		}
+	}
+
+	public static void gameOver() {
+		// TODO Auto-generated method stub
+		timer.stop();
+		gameOver=true;
 	}
 }
