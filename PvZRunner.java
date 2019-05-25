@@ -11,7 +11,7 @@ public class PvZRunner {
 	private final int WIDTH = 1500;
 	private final int HEIGHT = 800;
 	private int ticks=0;
-	private Field f;
+	private static Field f;
 	private SeedPackets s = new SeedPackets();
 	private LevelTemp lt = new LevelTemp();
 	private Seed selectedSeed;
@@ -166,6 +166,7 @@ public class PvZRunner {
 	public static void gameOver() {
 		// TODO Auto-generated method stub
 		timer.stop();
+		f.stopSpawning();
 		gameOver=true;
 	}
 }

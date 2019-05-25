@@ -19,7 +19,7 @@ public class Seed {
 		g.setColor(Color.YELLOW);
 		int thickNess = 4;
 		for (int i = 0; i < thickNess; i++) {
-			g.drawRect(rect.x+4 + i, rect.y + i, width - 2 * i, height - 2 * i);
+			g.drawRect(rect.x+4 + i, rect.y-2 + i, width - 2 * i, height - 2 * i);
 		}
 
 	}

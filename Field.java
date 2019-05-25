@@ -104,6 +104,9 @@ public class Field {
 
 
 	private void removePlant(int r, int c) {
+		if(p[r][c] instanceof Timed) {
+			((Timed) p[r][c]).stop();
+		}
 		p[r][c]=null;
 	}
 
@@ -245,6 +248,15 @@ public class Field {
 			}
 		}
 		return false;
+	}
+	public void stopSpawning() {
+		for(Plant[] temp:p) {
+			for (Plant pee:temp) {
+				if(pee instanceof Timed) {
+					((Timed) (pee)).stop();
+				}
+			}
+		}
 	}
 }
 
