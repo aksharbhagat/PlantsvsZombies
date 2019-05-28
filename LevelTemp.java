@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import javax.swing.Timer;
 
 public class LevelTemp {
-	private final int ZOMBIE_SPAWN_RATE = 10000;
+	private final int ZOMBIE_SPAWN_RATE = 20000;
 	private Timer t;
 	private Timer modifier;
 	//private int totalZombies=0;
@@ -22,8 +22,8 @@ public class LevelTemp {
 		modifier=new Timer(500, new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg1) {
-				if(t.getDelay()>500) {
-					t.setDelay(t.getDelay()-10);
+				if(t.getDelay()>1500) {
+					t.setDelay(t.getDelay()-50);
 				}
 			}
 		});

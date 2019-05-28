@@ -15,7 +15,7 @@ public class Zombie {
 	private boolean dead = false;
 	public Zombie(int ytemp) {
 		// TODO Auto-generated constructor stub
-		x = 1300;
+		x = 1350;
 		row = ytemp;
 		health = 100;
 		startinghealth=health;

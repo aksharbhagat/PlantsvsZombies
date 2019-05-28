@@ -13,6 +13,7 @@ public class Field {
 	private int collectedSuns=150;
 	private static final Rectangle SHOVEL = new Rectangle(50, 600, 100, 100);
 	public final static int WIDTH=1200,HEIGHT=800;
+	private int score = 0;
 	public Field() {
 		i = getImage("Frontyard.png");
 	}
@@ -67,7 +68,7 @@ public class Field {
 				for(int c = z.size()-1; c>=0; c--) {			
 					Zombie ztemp = z.get(c);
 					if(temp.getRow() == ztemp.getRow()) {
-						if(Math.abs(temp.getRect().x-z.get(c).getX())<20) {
+						if(Math.abs(temp.getRect().x-z.get(c).getX())<10) {
 							z.get(c).dying();
 							b.remove(i);
 							checkZombieDeath();
@@ -81,6 +82,12 @@ public class Field {
 	private void checkZombieDeath() {
 		for(int c = z.size()-1; c>=0; c--) {
 			if(z.get(c).dead()==true) {
+				if(z.get(c) instanceof ConeZombie) {
+					score+=75;
+				}
+				else {
+					score+=50;
+				}
 				z.remove(c);
 			}		
 
@@ -143,6 +150,9 @@ public class Field {
 		g.setColor(Color.WHITE);
 		g.setFont(new Font(Font.SANS_SERIF, 1, 50));
 		g.drawString(""+collectedSuns, 45, 745);
+		g.setFont(new Font(Font.SANS_SERIF, 1, 40));
+		g.drawString("Score:", 45, 525);
+		g.drawString(""+score, 45, 575);
 
 	}
 	public void addZombie(Zombie zee) {
