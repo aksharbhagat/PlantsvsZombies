@@ -1,5 +1,4 @@
 import java.awt.*;
-import java.awt.List;
 import java.io.IOException;
 import java.util.*;
 
@@ -105,6 +104,9 @@ public class Field {
 
 
 	private void removePlant(int r, int c) {
+		if(p[r][c] instanceof Timed) {
+			((Timed) p[r][c]).stop();
+		}
 		p[r][c]=null;
 	}
 
@@ -132,11 +134,13 @@ public class Field {
 		g.drawImage(shove, SHOVEL.x, SHOVEL.y, SHOVEL.width, SHOVEL.height, null);
 		if(PvZRunner.shovelSelected) {
 			g.setColor(Color.YELLOW);
-			g.drawRect(SHOVEL.x, SHOVEL.y, SHOVEL.width, SHOVEL.height);
+			int thickNess=4;
+			for (int i = 0; i < thickNess; i++) {
+				g.drawRect(SHOVEL.x + i, SHOVEL.y + i, SHOVEL.width - 2 * i, SHOVEL.height - 2 * i);
+			}
 		}
+
 		g.setColor(Color.WHITE);
-		g.fillRect(50, 700, 100, 50);
-		g.setColor(Color.BLACK);
 		g.setFont(new Font(Font.SANS_SERIF, 1, 50));
 		g.drawString(""+collectedSuns, 45, 745);
 
@@ -160,6 +164,9 @@ public class Field {
 		for(Zombie zo:z) {
 			if(zo != null) {
 				zo.walk();
+				if(zo.getX()<205) {
+					PvZRunner.gameOver();
+				}
 			}
 		}
 	}
@@ -206,7 +213,7 @@ public class Field {
 		if(p[row][col]!=null) {
 
 			if(p[row][col] instanceof Timed) {
-				((Sunflower) (p[row][col])).stop();
+				((Timed) (p[row][col])).stop();
 			}
 			p[row][col]=null;
 		}
@@ -241,6 +248,15 @@ public class Field {
 			}
 		}
 		return false;
+	}
+	public void stopSpawning() {
+		for(Plant[] temp:p) {
+			for (Plant pee:temp) {
+				if(pee instanceof Timed) {
+					((Timed) (pee)).stop();
+				}
+			}
+		}
 	}
 }
 

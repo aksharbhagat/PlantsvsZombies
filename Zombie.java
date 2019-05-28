@@ -5,13 +5,13 @@ import javax.imageio.ImageIO;
 
 public class Zombie {
 	private final static int WALKING_SPEED = 1;
-	private int health;
-	private int startinghealth;
-	private int row;
-	private int x;
-	private final int height;
+	protected int health;
+	protected int startinghealth;
+	protected int row;
+	protected int x;
+	protected final int height;
 	private int dx=this.WALKING_SPEED;
-	private Image image;
+	protected Image image;
 	private boolean dead = false;
 	public Zombie(int ytemp) {
 		// TODO Auto-generated constructor stub
