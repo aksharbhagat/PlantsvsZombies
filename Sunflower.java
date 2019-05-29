@@ -5,7 +5,7 @@ import javax.swing.*;
 
 public class Sunflower extends Plant implements Timed{
 	//private ActionListener a=null;
-	private final int SUN_SPAWN_RATE = 10000;
+	private final int SUN_SPAWN_RATE = 12500;
 	private Timer t;
 	private int x,y;
 	public Sunflower(int row, int col) {
