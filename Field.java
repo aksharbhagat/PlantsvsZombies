@@ -85,6 +85,9 @@ public class Field {
 				if(z.get(c) instanceof ConeZombie) {
 					score+=75;
 				}
+				else if(z.get(c) instanceof BucketZombie) {
+					score+=100;
+				}
 				else {
 					score+=50;
 				}

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import javax.swing.Timer;
 
 public class LevelTemp {
-	private final int ZOMBIE_SPAWN_RATE = 20000;
+	private final int ZOMBIE_SPAWN_RATE = 1000;
 	private Timer t;
 	private Timer modifier;
 	//private int totalZombies=0;
@@ -22,8 +22,8 @@ public class LevelTemp {
 		modifier=new Timer(500, new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg1) {
-				if(t.getDelay()>1500) {
-					t.setDelay(t.getDelay()-50);
+				if(t.getDelay()>1250) {
+					t.setDelay(t.getDelay()-75);
 				}
 			}
 		});
@@ -36,9 +36,13 @@ public class LevelTemp {
 			refillrows();
 		}
 		int col = (int) (Math.random()*rows.size());
-		int type = (int)(Math.random()*5);
-		if(type<2) {
+		int type = (int)(Math.random()*100);
+		if(type<20) {
 			f.addZombie(new ConeZombie(rows.get(col)));
+			rows.remove(col);
+		}
+		else if(type>90) {
+			f.addZombie(new BucketZombie(rows.get(col)));
 			rows.remove(col);
 		}
 		else {

@@ -8,7 +8,7 @@ public class Peashooter extends Plant implements Timed{
 	private final int BULLET_SPAWN_RATE = 2000;
 	private Timer t;
 	public Peashooter(int row, int col) {
-		super(row, col, 100, "peashooter2.png");
+		super(row, col, 100, "peashooter.png");
 		cost=100;
 		// TODO Auto-generated constructor stub
 	}
