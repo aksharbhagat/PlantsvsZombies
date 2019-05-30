@@ -13,7 +13,7 @@ public class Field {
 	private int collectedSuns=150;
 	private static final Rectangle SHOVEL = new Rectangle(50, 600, 100, 100);
 	public final static int WIDTH=1200,HEIGHT=800;
-	private int score = 0;
+	private static int score = 0;
 	public Field() {
 		i = getImage("Frontyard.png");
 	}
@@ -79,7 +79,7 @@ public class Field {
 			}
 		}
 	}
-	private void checkZombieDeath() {
+	private static void checkZombieDeath() {
 		for(int c = z.size()-1; c>=0; c--) {
 			if(z.get(c).dead()==true) {
 				if(z.get(c) instanceof ConeZombie) {
@@ -268,6 +268,14 @@ public class Field {
 				if(pee instanceof Timed) {
 					((Timed) (pee)).stop();
 				}
+			}
+		}
+	}
+	public static void killAllinRow(int row) {
+		for(int i = 0;i<z.size();i++) {
+			if(z.get(i).getRow()==row) {
+				z.get(i).health=-1;
+				checkZombieDeath();
 			}
 		}
 	}

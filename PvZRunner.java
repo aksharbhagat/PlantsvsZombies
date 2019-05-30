@@ -122,6 +122,10 @@ public class PvZRunner {
 				f.addPlant(new Repeater(row,col));
 				selectedSeed=null;
 			}
+			else if(selectedSeed.getType()==Type.JALAPENO) {
+				f.addPlant(new Jalapeno(row,col));
+				selectedSeed=null;
+			}
 		}
 		else if(shovelSelected) {
 			f.shovel(row,col);
