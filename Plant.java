@@ -9,7 +9,7 @@ public abstract class Plant {
 	private int row;
 	private int col;
 	private Image image;
-	protected boolean dead = false;
+	private boolean dead = false;
 	protected int cost;
 	public Plant(int rw, int cl, int h, String s) {
 		// TODO Auto-generated constructor stub
