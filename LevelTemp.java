@@ -16,14 +16,14 @@ public class LevelTemp {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				addZombies(f);
-				System.out.println(t.getDelay());
+			//	System.out.println(t.getDelay());
 			}
 		});
 		modifier=new Timer(500, new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg1) {
-				if(t.getDelay()>1250) {
-					t.setDelay(t.getDelay()-75);
+				if(t.getDelay()>1480) {
+					t.setDelay(t.getDelay()-40);
 				}
 			}
 		});

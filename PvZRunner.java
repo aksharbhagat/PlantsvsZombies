@@ -118,6 +118,10 @@ public class PvZRunner {
 				f.addPlant(new Walnut(row,col));
 				selectedSeed=null;
 			}
+			else if(selectedSeed.getType()==Type.REPEATER) {
+				f.addPlant(new Repeater(row,col));
+				selectedSeed=null;
+			}
 		}
 		else if(shovelSelected) {
 			f.shovel(row,col);

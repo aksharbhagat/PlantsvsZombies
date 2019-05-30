@@ -48,7 +48,7 @@ public abstract class Plant {
 		return cost;
 	}
 	public void dying() {
-		health-=1;
+		health-=2;
 		if (health<=0) {
 			dead = true;
 		}
